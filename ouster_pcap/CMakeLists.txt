@@ -10,8 +10,11 @@ target_include_directories(ouster_pcap PUBLIC
   $<INSTALL_INTERFACE:include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
-if(WIN32)
+if(MSVC)
   target_compile_options(ouster_pcap PRIVATE /wd4200)
+endif()
+
+if(WIN32)
   target_link_libraries(ouster_pcap PUBLIC ws2_32)
 endif()
 target_link_libraries(ouster_pcap

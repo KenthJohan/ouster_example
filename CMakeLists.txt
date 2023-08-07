@@ -20,7 +20,7 @@ option(BUILD_PCAP "Build pcap utils." ON)
 option(BUILD_OSF "Build Ouster OSF library." OFF)
 option(BUILD_VIZ "Build Ouster visualizer." ON)
 option(BUILD_TESTING "Build tests" OFF)
-option(BUILD_EXAMPLES "Build C++ examples" OFF)
+option(BUILD_EXAMPLES "Build C++ examples" ON)
 option(OUSTER_USE_EIGEN_MAX_ALIGN_BYTES_32 "Eigen max aligned bytes." ON)
 
 # when building as a top-level project
@@ -38,9 +38,12 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   if(MSVC)
     add_compile_options(/W2)
-    add_compile_definitions(NOMINMAX _USE_MATH_DEFINES WIN32_LEAN_AND_MEAN)
   else()
     add_compile_options(-Wall -Wextra)
+  endif()
+
+  if(WIN32)
+    add_compile_definitions(NOMINMAX _USE_MATH_DEFINES WIN32_LEAN_AND_MEAN)
   endif()
 
   include(CTest)
